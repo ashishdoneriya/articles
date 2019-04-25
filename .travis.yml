@@ -1,9 +1,4 @@
 # Install the apt prerequisites
-# Build the website
-addons:
-  apt:
-    packages:
-      - python-pygments
 script:
   - binaries/generator
   # Deploy to GitHub pages
@@ -13,6 +8,6 @@ deploy:
   target-branch: gh-pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: /
+  local_dir: ~ /
   on:
     branch: master
