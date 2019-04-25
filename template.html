@@ -64,10 +64,10 @@
 
 			var pathContents = ['<a href="/">Home</a>'];
 			Array.prototype.forEach.call(pathParts, function (part, index) {
-				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '"&nbsp;&nbsp;>&nbsp;' + decodeURI(part) + '</a>');
+				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + decodeURI(part) + '</a>');
 			});
 
-			path.innerHTML = pathContents.join('&rsaquo;');
+			path.innerHTML = pathContents.join('&nbsp;&rsaquo;&nbsp;');
 
 			new Vue({
 				el: '#vapp',
