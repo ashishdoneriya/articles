@@ -70,7 +70,7 @@
 				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + temp + '</a>');
 			});
 
-			path.innerHTML = pathContentsTemp.join('&nbsp;&rsaquo;&nbsp;');
+			path.innerHTML = pathContents.join('&nbsp;&rsaquo;&nbsp;');
 
 			new Vue({
 				el: '#vapp',
