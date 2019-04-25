@@ -18,7 +18,7 @@
 					<th class="indexcolicon"><img src="/articles/directory-listing/icons/blank.svg" alt="[ICO]"></th>
 					<th class="indexcolname">Name</th>
 				</tr>
-				<tr class="even-dir" v-if="parentDir && parentDir != currentDir">
+				<tr class="even-dir" v-if="parentDir && parentDir != currentDir && parentDir != '/'">
 					<td class="indexcolicon"><a :href="parentDir"><img src="/articles/directory-listing/icons/folder-home.svg" alt="[DIR]"></a></td>
 					<td class="indexcolname"><a :href="parentDir">Parent Directory</a></td>
 				</tr>
