@@ -1,7 +1,7 @@
 # Install the apt prerequisites
 # Build the website
 script:
-  - binaries/hugo
+  - binaries/generator
   # Deploy to GitHub pages
 deploy:
   provider: pages
