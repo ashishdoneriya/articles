@@ -1,0 +1,55 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 56rem;
+}
+
+a {
+  color: #0d47a1;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  border-bottom: 1px solid currentColor;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 2rem 0;
+}
+
+.title .js-path a {
+  padding: 0 0.25rem 0;
+  text-decoration: none;
+}
+
+.title .js-path a:hover {
+  opacity: 1;
+}
+
+footer {
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+footer a {
+  color: #546e7a;
+}
