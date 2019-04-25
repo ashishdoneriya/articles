@@ -38,7 +38,7 @@
 				</tr>
 				<tr class="even-dir" v-for="dir of directories" v-if="canShowDir(dir)">
 					<td class="indexcolicon"><a :href="currentUrl + dir + '/'"><img src="/articles/directory-listing/icons/folder.svg" alt="[DIR]"></a></td>
-					<td class="indexcolname"><a :href="currentUrl + dir + '/'">{{dir}}/</a></td>
+					<td class="indexcolname"><a :href="currentUrl + dir + '/'">{{dir}}</a></td>
 				</tr>
 				<tr class="even-txt" v-for="document of documents" v-if="canShow(document)">
 					<td class="indexcolicon"><a :href="currentUrl + document"><img src="/articles/directory-listing/icons/pdf.svg" alt="[PDF]"></a></td>
