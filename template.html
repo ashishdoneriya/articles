@@ -95,7 +95,7 @@
 						return doc.endsWith('.pdf');
 					},
 					canShowDir(dir) {
-						return dir != 'directory-listing' && dir != '.git'
+						return dir != 'directory-listing' && dir != '.git'&& dir != 'binaries';
 					}
 				}
 			})

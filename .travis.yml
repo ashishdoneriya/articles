@@ -6,7 +6,7 @@ script:
 deploy:
   provider: pages
   repo: ashishdoneriya/articles
-  target-branch: master
+  target-branch: ghPages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   local_dir: /
