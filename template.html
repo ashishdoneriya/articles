@@ -36,9 +36,12 @@
 		<script>
 			function joinUntil(array, index, separator) {
 				var result = [];
-
 				for (var i = 0; i <= index; i++) {
-					result.push(array[i]);
+					if (i == 0) {
+						result.push(array[i].charAt(0).toUpperCase() + array[i].slice(1));
+					} else {
+						result.push(array[i]);
+					}
 				}
 
 				return result.join(separator);
@@ -64,12 +67,10 @@
 
 			var pathContents = ['<a href="/">Home</a>'];
 			var pathContentsTemp = [];
-			var isFirst = true;
 			Array.prototype.forEach.call(pathParts, function (part, index) {
-				var temp = decodeURI(part);
-				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + temp + '</a>');
-				pathContentsTemp.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + (isFirst ? temp.charAt(0).toUpperCase() + temp.slice(1) : temp)  + '</a>');
-				isFirst = false;
+
+				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + decodeURI(part) + '</a>');
+				pathContentsTemp.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + decodeURI(part)  + '</a>');
 			});
 
 			path.innerHTML = pathContentsTemp.join('&nbsp;&rsaquo;&nbsp;');
