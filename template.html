@@ -64,9 +64,11 @@
 
 			var pathContents = ['<a href="/">Home</a>'];
 			var pathContentsTemp = [];
+			var isFirst = true;
 			Array.prototype.forEach.call(pathParts, function (part, index) {
 				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + decodeURI(part) + '</a>');
-				pathContentsTemp.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + decodeURI(part) + '</a>');
+				pathContentsTemp.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + isFirst ? decodeURI(part).toUpperCase() : decodeURI(part)  + '</a>');
+				isFirst = false;
 			});
 
 			path.innerHTML = pathContentsTemp.join('&nbsp;&rsaquo;&nbsp;');
