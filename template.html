@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Gallery</title>
+		<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<link rel="icon" type="image/png" href="/icons/favico.png" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<style>
+			img {
+				width: 200px;
+				height: 200px;
+				object-fit: scale-down;
+			}
+
+			body {
+				margin-left: 30px;
+			}
+
+			* {
+				font-family: Arial, FreeSans, Roboto, Ubuntu !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="vapp">
+			<nav class="navbar fixed-top navbar-dark bg-dark">
+				<a class="navbar-brand" href="/">Gallery</a>
+			</nav>
+			<div style="margin-top:70px;">
+				<div class="row col-lg-12" style="margin-bottom:20px" v-if="directories.length > 0">
+					<div class="row col-lg-12">
+						<span style="font-size:18px;font-weight:400;color:#555">Directories
+						</span>
+					</div>
+					<div class="row col-lg-12">
+						<div v-for="dir of directories" @click="openDir(dir)" style="display: inline-block;margin:10px 10px 10px 0;cursor:pointer;">
+							<div :title="dir" style="width:200px;height:50px;border:1px solid #eee;font-size:13px;color:#444;padding-left:5px;margin:5px;border-radius:5px;display:table-cell;vertical-align:middle">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:20px;height:20px;fill:#555;margin:0 auto;margin-right:5px;float:left">
+									<path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+									<path d="M0 0h24v24H0z" fill="none" />
+								</svg>
+								<span style="display:inline-block;vertical-align:middle;font-size:15px;line-height:20px;color:#555;font-weight:500;max-width:175px;overflow:hidden;text-overflow:ellipsis;max-height:40px">{{dir}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row col-lg-12" style="margin-bottom:20px" v-if="documents.length > 0">
+					<div class="row col-lg-12">
+						<span style="font-size:18px;font-weight:400;color:#555">Documents
+						</span>
+					</div>
+					<div class="row col-lg-12">
+						<div v-for="document of documents" @click="openDocument(document)" style="display: inline-block;margin:10px 10px 10px 0;cursor:pointer;">
+							<div style="width:200px;height:50px;border:1px solid #eee;font-size:13px;color:#444;padding-left:5px;margin:5px;border-radius:5px;display:table-cell;vertical-align:middle">	
+								<svg style="width:20px;height:20px;fill:#555;margin:0 auto;margin-right:5px;float:left" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+								<span style="display:inline-block;vertical-align:middle;font-size:15px;line-height:20px;color:#555;font-weight:500;max-width:175px;overflow:hidden;text-overflow:ellipsis;max-height:40px">{{document}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+				new Vue({
+					el: '#vapp',
+					data: {
+						directories: [
+							DIRECTORIES_LIST_COMES_HERE
+						],
+						documents: [
+							DOCUMENTS_LIST_COMES_HERE
+						]
+					},
+					methods: {
+						openDir(dir) {
+							var currentUrl = window.location.href;
+							if (currentUrl.endsWith("index.html")) {
+								currentUrl = currentUrl.replace("index.html", "");
+							}
+							window.location = currentUrl + dir + "/";
+						},
+						openDocument(document) {
+							var currentUrl = window.location.href;
+							if (currentUrl.endsWith("index.html")) {
+								currentUrl = currentUrl.replace("index.html", "");
+							}
+							window.location = currentUrl + document;
+						}
+					}
+				})
+
+			</script>
+	</body>
+
+</html>
