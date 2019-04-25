@@ -4,7 +4,7 @@
 
 	<head>
 		<title>Documents</title>
-		<link rel="stylesheet" href="/directory-listing/table.css" type="text/css">
+		<link rel="stylesheet" href="/articles/directory-listing/table.css" type="text/css">
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
@@ -15,19 +15,19 @@
 			<h1 class="title">Index of <span class="js-path"></span></h1>
 			<table id="indexlist">
 				<tr class="indexhead">
-					<th class="indexcolicon"><img src="/directory-listing/icons/blank.svg" alt="[ICO]"></th>
+					<th class="indexcolicon"><img src="/articles/directory-listing/icons/blank.svg" alt="[ICO]"></th>
 					<th class="indexcolname">Name</th>
 				</tr>
 				<tr class="even-dir" v-if="parentDir && parentDir != currentDir">
-					<td class="indexcolicon"><a :href="parentDir"><img src="/directory-listing/icons/folder-home.svg" alt="[DIR]"></a></td>
+					<td class="indexcolicon"><a :href="parentDir"><img src="/articles/directory-listing/icons/folder-home.svg" alt="[DIR]"></a></td>
 					<td class="indexcolname"><a :href="parentDir">Parent Directory</a></td>
 				</tr>
 				<tr class="even-dir" v-for="dir of directories" v-if="canShowDir(dir)">
-					<td class="indexcolicon"><a :href="currentUrl + dir + '/'"><img src="/directory-listing/icons/folder.svg" alt="[DIR]"></a></td>
+					<td class="indexcolicon"><a :href="currentUrl + dir + '/'"><img src="/articles/directory-listing/icons/folder.svg" alt="[DIR]"></a></td>
 					<td class="indexcolname"><a :href="currentUrl + dir + '/'">{{dir}}/</a></td>
 				</tr>
 				<tr class="even-txt" v-for="document of documents" v-if="canShow(document)">
-					<td class="indexcolicon"><a :href="currentUrl + document"><img src="/directory-listing/icons/pdf.svg" alt="[PDF]"></a></td>
+					<td class="indexcolicon"><a :href="currentUrl + document"><img src="/articles/directory-listing/icons/pdf.svg" alt="[PDF]"></a></td>
 					<td class="indexcolname"><a :href="currentUrl + document">{{document}}</a></td>
 				</tr>
 			</table>
