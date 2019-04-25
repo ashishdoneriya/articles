@@ -68,7 +68,7 @@
 			Array.prototype.forEach.call(pathParts, function (part, index) {
 				var temp = decodeURI(part);
 				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + temp + '</a>');
-				pathContentsTemp.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + isFirst ? temp.charAt(0).toUpperCase() + temp.slice(1) : temp  + '</a>');
+				pathContentsTemp.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + (isFirst ? temp.charAt(0).toUpperCase() + temp.slice(1) : temp)  + '</a>');
 				isFirst = false;
 			});
 
