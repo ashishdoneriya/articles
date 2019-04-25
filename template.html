@@ -64,9 +64,7 @@
 			var isFirst = true;
 			Array.prototype.forEach.call(pathParts, function (part, index) {
 				var temp = decodeURI(part);
-				if (isFirst) {
-					temp = temp.charAt(0).toUpperCase() + temp.slice(1)
-				}
+				temp = temp.charAt(0).toUpperCase() + temp.slice(1);
 				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + temp + '</a>');
 			});
 
