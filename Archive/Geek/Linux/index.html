@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<html>
+
+	<head>
+		<title>Articles</title>
+		<link rel="stylesheet" href="/articles/directory-listing/grid.css" type="text/css">
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
+		<style>
+			body {
+				padding:20px;
+				background:#232323;
+			}
+			main {
+				margin:0 auto;
+				padding:20px;
+				background:#fff;
+				min-height: 315px;
+			}
+			h1 {
+    			margin-top:10px !important;
+			}
+			[v-cloak] { display:none; }
+		</style>
+	</head>
+
+	<body>
+		<main id="vapp">
+			<h1 class="title"><span class="js-path"></span></h1>
+			<table id="indexlist" v-cloak>
+				<tr class="indexhead">
+					<th class="indexcolicon"><img src="/articles/directory-listing/icons/blank.svg" alt="[ICO]"></th>
+					<th class="indexcolname">Name</th>
+				</tr>
+				<tr class="even-dir" v-if="parentDir && parentDir != currentDir && parentDir != '/'">
+					<td class="indexcolicon"><a :href="parentDir"><img src="/articles/directory-listing/icons/folder-home.svg" alt="[DIR]"></a></td>
+					<td class="indexcolname"><a :href="parentDir">Parent Directory</a></td>
+				</tr>
+				<tr class="even-dir" v-for="dir of directories" v-if="canShowDir(dir)">
+					<td class="indexcolicon"><a :href="currentUrl + dir + '/'"><img src="/articles/directory-listing/icons/folder.svg" alt="[DIR]"></a></td>
+					<td class="indexcolname"><a :href="currentUrl + dir + '/'">{{dir}}</a></td>
+				</tr>
+				<tr class="even-txt" v-for="document of documents" v-if="canShow(document)">
+					<td class="indexcolicon"><a :href="currentUrl + document"><img src="/articles/directory-listing/icons/pdf.svg" alt="[PDF]"></a></td>
+					<td class="indexcolname"><a :href="currentUrl + document">{{document}}</a></td>
+				</tr>
+			</table>
+		</main>
+
+		<script>
+			function joinUntil(array, index, separator) {
+				var result = [];
+				for (var i = 0; i <= index; i++) {
+					result.push(array[i]);
+				}
+
+				return result.join(separator);
+			}
+
+			// Make all the icon links unfocusable with tab
+			var iconLinks = document.querySelectorAll('.indexcolicon a');
+			Array.prototype.forEach.call(iconLinks, function (link) {
+				link.setAttribute('tabindex', '-1');
+			});
+
+			var path = document.querySelector('.js-path');
+			var pathParts = location.pathname.split('/');
+
+			// Removing empty strings
+			for (var i = 0; i < pathParts.length;) {
+				if (pathParts[i]) {
+					i++;
+				} else {
+					pathParts.splice(i, 1);
+				}
+			}
+			var pathContents = [];
+			var isFirst = true;
+			Array.prototype.forEach.call(pathParts, function (part, index) {
+				var temp = decodeURI(part);
+				temp = temp.charAt(0).toUpperCase() + temp.slice(1);
+				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + temp + '</a>');
+			});
+
+			path.innerHTML = pathContents.join('&nbsp;&rsaquo;&nbsp;');
+
+			new Vue({
+				el: '#vapp',
+				data: {
+					directories: [
+						
+					],
+					documents: [
+						"4 Ways to Back Up Your Entire Hard Drive on Linux.pdf","Aptik – Backup Your PPAs, Themes, Icons, And Application Settings In Ubuntu _ Unixmen.pdf","Defragment 'Ext4' File systems Using 'e4defrag' (Ubuntu).pdf","Enable File Sharing Between Windows 8 And Ubuntu 13.04 Raring Ringtail _ Liberian Geek.pdf","How To Create A Multiboot USB Pendrive With Multiple Operating System In It.pdf","How To Create An Infrastructure WiFi Access Point To Connect Android Devices _ Unixmen.pdf","How To Create ISO Files In Linux.pdf","How to Auto Mount Partitions On Boot in Linux Easily.pdf","How to Improve Font Rendering in Linux with Infinality - Make Tech Easier.pdf","How to Repair GRUB2 When Ubuntu Won’t Boot.pdf","How to Repair a Corrupted USB Drive in Linux.pdf","How to Run ISO Files Directly From the HDD with GRUB2.pdf","How to Tweak the 'Swap' file's behavior (for Performance or Stability) in Ubuntu Linux.pdf","Improve the appearance of fonts on Linux Mint • MintGuide.Org.pdf","Linux Tune Network Stack (Buffers Size) To Increase Networking Performance - nixCraft.pdf","Linux Virtual File System.pdf","Linuxslaves_ How to Download APK Files From Google Play Store in Ubuntu.pdf","Linuxslaves_ Share Internet Connection From Ubuntu to Android Devices.pdf","Make Your KDE Desktop Look like Unity with this Plasma Theme Pack - OMG! Ubuntu.pdf","Manage Plymouth, Burg & Grub With Super Boot Manager.pdf","Optimizing servers - Tuning the GNU_Linux Kernel.pdf","Setup Local Repository In Ubuntu 15.04 _ Unixmen.pdf","Share Internet Connection With Android in Ubuntu 14.04.pdf","Try Any Linux Flavor from a USB Stick with Linux AIO.pdf","custom distributions - How to customize the Ubuntu Live CD_ - Ask Ubuntu.pdf","dual boot - How to set Windows bootloader as default bootloader_ - Ask Ubuntu.pdf","unity - How do I configure the default applications on the launcher on a LiveCD_ - Ask Ubuntu.pdf"
+					],
+					currentUrl: '',
+					parentDir: '',
+					currentDir: ''
+				},
+				created() {
+					this.currentUrl = window.location.href;
+					if (this.currentUrl.endsWith("index.html")) {
+						this.currentUrl = this.currentUrl.replace("index.html", "");
+					}
+					this.parentDir = '/' + joinUntil(pathParts, pathParts.length - 2, '/').trim();
+					this.currentDir = '/' + joinUntil(pathParts, pathParts.length - 1, '/').trim();
+				},
+				methods: {
+					canShow(doc) {
+						return doc.endsWith('.pdf');
+					},
+					canShowDir(dir) {
+						return dir != 'directory-listing' && dir != '.git' && dir != 'binaries';
+					}
+				}
+			})
+
+		</script>
+	</body>
+
+</html>

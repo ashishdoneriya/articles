@@ -1,0 +1,13 @@
+# Install the apt prerequisites
+script:
+  - binaries/generator
+  # Deploy to GitHub pages
+deploy:
+  provider: pages
+  repo: ashishdoneriya/articles
+  target-branch: gh-pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: ./
+  on:
+    branch: master

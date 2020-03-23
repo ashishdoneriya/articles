@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<html>
+
+	<head>
+		<title>Articles</title>
+		<link rel="stylesheet" href="/articles/directory-listing/grid.css" type="text/css">
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
+		<style>
+			body {
+				padding:20px;
+				background:#232323;
+			}
+			main {
+				margin:0 auto;
+				padding:20px;
+				background:#fff;
+				min-height: 315px;
+			}
+			h1 {
+    			margin-top:10px !important;
+			}
+			[v-cloak] { display:none; }
+		</style>
+	</head>
+
+	<body>
+		<main id="vapp">
+			<h1 class="title"><span class="js-path"></span></h1>
+			<table id="indexlist" v-cloak>
+				<tr class="indexhead">
+					<th class="indexcolicon"><img src="/articles/directory-listing/icons/blank.svg" alt="[ICO]"></th>
+					<th class="indexcolname">Name</th>
+				</tr>
+				<tr class="even-dir" v-if="parentDir && parentDir != currentDir && parentDir != '/'">
+					<td class="indexcolicon"><a :href="parentDir"><img src="/articles/directory-listing/icons/folder-home.svg" alt="[DIR]"></a></td>
+					<td class="indexcolname"><a :href="parentDir">Parent Directory</a></td>
+				</tr>
+				<tr class="even-dir" v-for="dir of directories" v-if="canShowDir(dir)">
+					<td class="indexcolicon"><a :href="currentUrl + dir + '/'"><img src="/articles/directory-listing/icons/folder.svg" alt="[DIR]"></a></td>
+					<td class="indexcolname"><a :href="currentUrl + dir + '/'">{{dir}}</a></td>
+				</tr>
+				<tr class="even-txt" v-for="document of documents" v-if="canShow(document)">
+					<td class="indexcolicon"><a :href="currentUrl + document"><img src="/articles/directory-listing/icons/pdf.svg" alt="[PDF]"></a></td>
+					<td class="indexcolname"><a :href="currentUrl + document">{{document}}</a></td>
+				</tr>
+			</table>
+		</main>
+
+		<script>
+			function joinUntil(array, index, separator) {
+				var result = [];
+				for (var i = 0; i <= index; i++) {
+					result.push(array[i]);
+				}
+
+				return result.join(separator);
+			}
+
+			// Make all the icon links unfocusable with tab
+			var iconLinks = document.querySelectorAll('.indexcolicon a');
+			Array.prototype.forEach.call(iconLinks, function (link) {
+				link.setAttribute('tabindex', '-1');
+			});
+
+			var path = document.querySelector('.js-path');
+			var pathParts = location.pathname.split('/');
+
+			// Removing empty strings
+			for (var i = 0; i < pathParts.length;) {
+				if (pathParts[i]) {
+					i++;
+				} else {
+					pathParts.splice(i, 1);
+				}
+			}
+			var pathContents = [];
+			var isFirst = true;
+			Array.prototype.forEach.call(pathParts, function (part, index) {
+				var temp = decodeURI(part);
+				temp = temp.charAt(0).toUpperCase() + temp.slice(1);
+				pathContents.push('<a href="/' + joinUntil(pathParts, index, '/') + '">' + temp + '</a>');
+			});
+
+			path.innerHTML = pathContents.join('&nbsp;&rsaquo;&nbsp;');
+
+			new Vue({
+				el: '#vapp',
+				data: {
+					directories: [
+						
+					],
+					documents: [
+						"An Unforgettable Experience.pdf","As Loyal as a Dog yet as Loving as a Wife.pdf","Benefits of Sitting amp Eating on the Floor.pdf","Birth Control Myths.pdf","Devotees Take Srila Prabhupada on Historic Trip to Antarctica.pdf","ISKCON Communications statement against caste-based discrimination.pdf","Karwa Chauth When Indian men fast for their wives.pdf","Manu in the Bible and the History of Mankind.pdf","Meaning of Turban in Indian Culture.pdf","The Importance of being Hanuman.pdf"
+					],
+					currentUrl: '',
+					parentDir: '',
+					currentDir: ''
+				},
+				created() {
+					this.currentUrl = window.location.href;
+					if (this.currentUrl.endsWith("index.html")) {
+						this.currentUrl = this.currentUrl.replace("index.html", "");
+					}
+					this.parentDir = '/' + joinUntil(pathParts, pathParts.length - 2, '/').trim();
+					this.currentDir = '/' + joinUntil(pathParts, pathParts.length - 1, '/').trim();
+				},
+				methods: {
+					canShow(doc) {
+						return doc.endsWith('.pdf');
+					},
+					canShowDir(dir) {
+						return dir != 'directory-listing' && dir != '.git' && dir != 'binaries';
+					}
+				}
+			})
+
+		</script>
+	</body>
+
+</html>
